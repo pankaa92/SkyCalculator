@@ -37,7 +37,19 @@ function loadSavedHistory(): HistoryEntry[] {
     const raw = window.localStorage.getItem(STORAGE_KEY);
     if (!raw) return [];
     const parsed = JSON.parse(raw);
-    return Array.isArray(parsed) ? parsed.slice(0, MAX_HISTORY_ITEMS) : [];
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .filter(
+        (item): item is HistoryEntry =>
+          Boolean(item) &&
+          typeof item.id === 'string' &&
+          typeof item.expression === 'string' &&
+          typeof item.result === 'string' &&
+          typeof item.numericResult === 'number' &&
+          Number.isFinite(item.numericResult) &&
+          typeof item.timestamp === 'number'
+      )
+      .slice(0, MAX_HISTORY_ITEMS);
   } catch {
     return [];
   }

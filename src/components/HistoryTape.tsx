@@ -8,10 +8,17 @@ interface HistoryTapeProps {
 }
 
 function formatTime(timestamp: number): string {
-  return new Intl.DateTimeFormat(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-  }).format(new Date(timestamp));
+  if (!Number.isFinite(timestamp)) {
+    return '';
+  }
+  try {
+    return new Intl.DateTimeFormat(undefined, {
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(new Date(timestamp));
+  } catch {
+    return '';
+  }
 }
 
 export function HistoryTape({ entries, onRecall, onClear }: HistoryTapeProps) {
