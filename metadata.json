@@ -1,0 +1,6 @@
+{
+  "name": "SkyCalc",
+  "description": "A precision dark-mode arithmetic calculator with a sky blue theme, keyboard support, and calculation tape.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
